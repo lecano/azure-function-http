@@ -1,11 +1,12 @@
-import logging
 import requests
 
 import azure.functions as func
 
-
 def main(req: func.HttpRequest) -> func.HttpResponse:
-    url = 'https://reqres.in/api/users?page=1'
+    page = req.params.get('page') if req.params.get('page') else ''
+    per_page = req.params.get('per_page') if req.params.get('per_page') else ''
+
+    url = 'https://reqres.in/api/users?page=' + page + '&per_page=' + per_page
     headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
